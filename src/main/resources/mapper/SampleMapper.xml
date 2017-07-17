@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.geekymv.springboot_demo.dao.SampleDao">
+
+	<!-- 所有列 -->
+	<sql id="column_list">
+		id,
+		username,
+		password
+	</sql>
+
+	<resultMap id="list_test" type="User">
+		<id column="id" property="id" />
+		<result column="username" property="username" />
+		<result column="password" property="password" />
+	</resultMap>
+
+	<!-- 根据ID查询数据 -->
+	<select id="findByName" parameterType="int" resultMap="list_test">
+		SELECT
+		<include refid="column_list" />
+		FROM t_user
+		WHERE id = #{id}
+	</select>
+	
+	<!--<select id="findById" parameterType="int" resultType="java.util.HashMap">
+		SELECT
+		<include refid="column_list" />
+		FROM t_user
+		WHERE id = #{id}
+	</select>-->
+
+
+	<select id="findById" parameterType="int" resultType="java.util.HashMap">
+		SELECT ps_key,device_type
+		FROM power_device
+		WHERE uuid = #{id}
+	</select>
+	
+	
+
+</mapper>
